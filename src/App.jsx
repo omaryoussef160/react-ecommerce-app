@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Navbar from "./components/Navbar";
-
 import Products from "./pages/Products/Products";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Cart from "./pages/Cart";
@@ -12,13 +10,9 @@ import ContactUs from "./pages/ContactUs";
 function App() {
   return (
     <BrowserRouter>
-
-      {/* Layout Wrapper */}
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-slate-100 to-violet-50">
+      <div className="min-h-screen bg-[#f0f5ff]">
         <Navbar />
-
-        <main className="max-w-7xl mx-auto px-4 py-6">
-
+        <main>
           <Routes>
             <Route path="/" element={<Products />} />
             <Route path="/products/:id" element={<ProductDetails />} />
@@ -27,11 +21,8 @@ function App() {
             <Route path="/contact" element={<ContactUs />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-
         </main>
-
       </div>
-
     </BrowserRouter>
   );
 }
