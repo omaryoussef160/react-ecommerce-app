@@ -1,16 +1,47 @@
-# React + Vite
+# React E-Commerce App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A front-end e-commerce practice project built with **React** and **Vite**, created to strengthen hands-on skills in API integration, state management, and building core e-commerce user flows.
 
-Currently, two official plugins are available:
+🔗 **Live Demo:** [react-ecommerce-app-weld-omega.vercel.app](https://react-ecommerce-app-weld-omega.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- **Product Listing** – Fetches and displays live product data from a public REST API.
+- **Product Details Page** – View detailed information for each product.
+- **Shopping Cart** – Add and manage products in a cart.
+- **Login Page** – Basic user authentication flow.
+- **Contact Us Page** – Simple contact form for user inquiries.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- React
+- Vite
+- JavaScript
+- REST API (external product data)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/omaryoussef160/react-ecommerce-app.git
+cd react-ecommerce-app
+npm install
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`.
+
+## Purpose
+
+This project was built as a personal training exercise to practice:
+- Consuming external APIs in React
+- Managing application state (cart, product data)
+- Building multi-page flows with routing
+- Structuring a React + Vite project from scratch
+
+## Author
+
+**Omar Youssef**
+- GitHub: [@omaryoussef160](https://github.com/omaryoussef160)
+- LinkedIn: [omar-youssef](https://www.linkedin.com/in/omar-youssef-7b75a6246/)
