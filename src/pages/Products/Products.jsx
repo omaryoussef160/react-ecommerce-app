@@ -23,22 +23,26 @@ function Products() {
   });
 
   return (
-    <div className="min-h-screen bg-[#f0f5ff]">
+    <div className="min-h-screen">
 
       {/* Hero Search */}
-      <div className="bg-gradient-to-b from-blue-100 to-[#f0f5ff]
-                      px-6 pt-10 pb-8 flex flex-col items-center gap-3">
+      <section className="grain relative overflow-hidden bg-[#e7eee4] px-5 sm:px-8 pt-14 pb-16 sm:pt-20 sm:pb-20">
+        <div className="absolute -right-16 -top-24 h-80 w-80 rounded-full border-[26px] border-[#d2e1cf] opacity-80" />
+        <div className="absolute right-[12%] top-12 hidden h-12 w-12 rotate-45 border border-[#78966d]/40 sm:block" />
+        <div className="absolute -left-10 bottom-0 h-36 w-36 rounded-full bg-[#f3e3c8] opacity-80" />
+        <div className="absolute left-5 top-1/2 hidden -translate-y-1/2 -rotate-90 text-[10px] font-bold uppercase tracking-[0.28em] text-[#78966d] lg:block">Living well — 2026</div>
+        <div className="relative mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
+          <span className="rounded-full border border-[#9ab392]/60 bg-white/40 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.24em] text-[#5e7957]">Curated for everyday</span>
 
-        <h1 className="text-xl font-medium text-[#1e3a5f] tracking-tight">
-          Explore Products
+        <h1 className="font-['Playfair_Display'] text-4xl sm:text-5xl font-semibold text-[#27332a] tracking-tight">
+          Things you’ll love to live with.
         </h1>
-        <p className="text-xs text-blue-300">Showing page {page + 1} results</p>
+        <p className="text-sm text-[#687569]">Discover considered pieces for your space and routine · Page {page + 1}</p>
 
         {/* Search Input */}
-        <div className="flex items-center w-full max-w-md bg-white
-                        border border-blue-200 rounded-xl px-4 py-2.5 gap-3
-                        shadow-[0_2px_12px_rgba(59,130,246,0.08)]">
-          <svg className="w-4 h-4 text-blue-300 flex-shrink-0" fill="none"
+        <div className="mt-3 flex items-center w-full max-w-xl bg-white/90
+                        border border-white rounded-full px-5 py-3.5 gap-3 shadow-[0_12px_30px_rgba(65,85,61,0.12)]">
+          <svg className="w-4 h-4 text-[#7b8e78] flex-shrink-0" fill="none"
                stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
@@ -48,32 +52,35 @@ function Products() {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search products..."
             className="bg-transparent flex-1 text-sm text-slate-700
-                       placeholder:text-blue-300 outline-none"
+                       placeholder:text-[#98a395] outline-none"
           />
           {search && (
             <button
               onClick={() => setSearch("")}
-              className="text-blue-300 hover:text-blue-500 text-xs transition"
+              className="text-[#7b8e78] hover:text-[#45603e] text-xs transition"
             >
-              ✕
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4" aria-label="Clear search">
+                <path strokeLinecap="round" d="m6 6 12 12M18 6 6 18" />
+              </svg>
             </button>
           )}
         </div>
-      </div>
+        </div>
+      </section>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 py-10">
 
         {/* Filter Pills */}
-        <div className="flex gap-2 flex-wrap mb-6">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-8">
           {filters.map((f) => (
             <button
               key={f}
               onClick={() => setActiveFilter(f)}
-              className={`px-4 py-1.5 rounded-full text-xs font-medium border transition-all duration-200
+              className={`px-4 py-2 rounded-full text-xs whitespace-nowrap font-semibold border transition-all duration-200
                 ${activeFilter === f
-                  ? "bg-blue-50 border-blue-300 text-blue-600 font-medium"
-                  : "bg-white border-blue-100 text-slate-500 hover:border-blue-300 hover:text-blue-500"
+                  ? "bg-[#27332a] border-[#27332a] text-white"
+                  : "bg-white border-[#e4e0d9] text-[#667085] hover:border-[#9ab392] hover:text-[#45603e]"
                 }`}
             >
               {f}
@@ -82,13 +89,13 @@ function Products() {
         </div>
 
         {/* Grid */}
-        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <div className="grid gap-4 sm:gap-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))
           ) : (
-            <div className="col-span-5 text-center py-16 text-blue-300 text-sm">
+            <div className="col-span-5 text-center py-16 text-[#7b8e78] text-sm">
               No products found
             </div>
           )}
@@ -99,20 +106,20 @@ function Products() {
           <button
             onClick={() => setPage(page - 1)}
             disabled={page === 0}
-            className="px-5 py-2 rounded-xl border border-blue-100 bg-white
-                       text-slate-500 text-xs hover:border-blue-300 hover:text-blue-500
+            className="px-5 py-2.5 rounded-full border border-[#e4e0d9] bg-white
+                       text-[#667085] text-xs hover:border-[#9ab392] hover:text-[#45603e]
                        disabled:opacity-30 transition-all"
           >
             Prev
           </button>
 
-          <span className="text-xs text-blue-300 px-1">Page {page + 1}</span>
+          <span className="text-xs text-[#7b8e78] px-1">Page {page + 1}</span>
 
           <button
             onClick={() => setPage(page + 1)}
-            className="px-5 py-2 rounded-xl text-xs font-medium
-                       bg-blue-50 border border-blue-200 text-blue-600
-                       hover:bg-blue-100 transition-all"
+            className="px-5 py-2.5 rounded-full text-xs font-semibold
+                       bg-[#27332a] border border-[#27332a] text-white
+                       hover:bg-[#45603e] transition-all"
           >
             Next
           </button>

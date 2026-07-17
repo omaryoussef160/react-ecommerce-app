@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useContext } from "react";
 import { LanguageContext } from "../context/LanguageContext";
@@ -9,66 +9,57 @@ function Navbar() {
   const { lang, setLang } = useContext(LanguageContext);
 
   const linkClass = ({ isActive }) =>
-    `text-xs px-3 py-1.5 rounded-lg transition-all duration-200 ${
+    `text-sm px-3 py-2 rounded-full transition-all duration-200 ${
       isActive
-        ? "text-blue-600 bg-blue-500/10 font-medium"
-        : "text-slate-500 hover:text-blue-600 hover:bg-blue-500/8"
+        ? "text-[#1f2933] bg-[#e7eee4] font-semibold"
+        : "text-[#667085] hover:text-[#1f2933]"
     }`;
 
   return (
-    <nav className="sticky top-0 z-50 bg-blue-100/50 backdrop-blur-xl border-b border-blue-200">
-      <div className="max-w-7xl mx-auto px-6 py-3.5 flex justify-between items-center">
+    <nav className="sticky top-0 z-50 bg-[#f8f7f4]/85 px-3 py-3 backdrop-blur-xl sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
+        <Link to="/" className="font-['Playfair_Display'] text-2xl font-bold tracking-tight text-[#27332a] transition-colors hover:text-[#45603e]" aria-label="Nest home">
+          nest<span className="text-[#78966d]">.</span>
+        </Link>
 
-        {/* Logo */}
-        <h1 className="text-[11px] font-medium text-blue-800 tracking-[5px] uppercase cursor-pointer">
-          E — Commerce
-        </h1>
-
-        {/* Links */}
-        <div className="flex items-center gap-1">
+        <div className="absolute left-1/2 hidden -translate-x-1/2 items-center rounded-full border border-[#e2ded6] bg-white/90 p-1 shadow-[0_8px_22px_rgba(38,51,39,0.07)] md:flex">
           <NavLink to="/" className={linkClass}>Products</NavLink>
           <NavLink to="/contact" className={linkClass}>Contact</NavLink>
-          <NavLink to="/register" className={linkClass}>Register</NavLink>
+          <NavLink to="/register" className={linkClass}>Join us</NavLink>
+        </div>
 
-          <div className="w-px h-3.5 bg-blue-200 mx-1" />
-
-          {/* Cart */}
-          <NavLink
-            to="/cart"
-            className={({ isActive }) =>
-              `relative text-xs px-3 py-1.5 rounded-lg transition-all duration-200 ${
-                isActive
-                  ? "text-blue-600 bg-blue-500/10 font-medium"
-                  : "text-slate-500 hover:text-blue-600 hover:bg-blue-500/8"
-              }`
-            }
-          >
-            Cart
-            {count > 0 && (
-              <span className="absolute top-0.5 right-0.5 bg-blue-500 text-white
-                               text-[9px] w-[14px] h-[14px] flex items-center justify-center
-                               rounded-full font-semibold">
-                {count}
-              </span>
-            )}
-          </NavLink>
-
-          <div className="w-px h-3.5 bg-blue-200 mx-1" />
-
-          {/* Language */}
+        <div className="flex items-center gap-2">
           <select
             value={lang}
             onChange={(e) => setLang(e.target.value)}
-            className="bg-white text-slate-500 border border-blue-200
-                       text-[11px] font-medium tracking-widest rounded-lg px-2.5 py-1.5
-                       focus:outline-none hover:border-blue-400 hover:text-blue-600
-                       transition-all cursor-pointer appearance-none"
+            aria-label="Language"
+            className="hidden cursor-pointer appearance-none rounded-full border border-[#ddd9d1] bg-white px-3 py-2 text-[10px] font-bold tracking-[0.12em] text-[#667085] outline-none transition hover:border-[#9ab392] hover:text-[#45603e] sm:block"
           >
             <option value="en">EN</option>
             <option value="ar">AR</option>
           </select>
-        </div>
 
+          <NavLink
+            to="/cart"
+            aria-label={`Cart with ${count} items`}
+            className={({ isActive }) => `relative flex h-10 w-10 items-center justify-center rounded-full border transition-all ${
+              isActive ? "border-[#27332a] bg-[#27332a] text-white" : "border-[#ddd9d1] bg-white text-[#45603e] hover:border-[#9ab392] hover:bg-[#e7eee4]"
+            }`}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4.5 w-4.5" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h2l1.5 10a2 2 0 0 0 2 1.7h8.8a2 2 0 0 0 1.9-1.4L20 8H6.3M9 20a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm10 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" />
+            </svg>
+            {count > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#78966d] text-[9px] font-bold text-white ring-2 ring-[#f8f7f4]">{count}</span>
+            )}
+          </NavLink>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-2 flex max-w-sm items-center justify-center rounded-full border border-[#e2ded6] bg-white/90 p-1 shadow-sm md:hidden">
+        <NavLink to="/" className={linkClass}>Shop</NavLink>
+        <NavLink to="/contact" className={linkClass}>Contact</NavLink>
+        <NavLink to="/register" className={linkClass}>Join</NavLink>
       </div>
     </nav>
   );

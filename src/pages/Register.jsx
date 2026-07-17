@@ -3,166 +3,48 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 function Register() {
-
   const navigate = useNavigate();
-
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      username: "",
-      password: "",
-      confirmPassword: ""
-    },
-
+    initialValues: { name: "", email: "", username: "", password: "", confirmPassword: "" },
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
-
-      email: Yup.string()
-        .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email format")
-        .required("Email is required"),
-
-      username: Yup.string()
-        .matches(/^\S*$/, "Username must not contain spaces")
-        .required("Username is required"),
-
-      password: Yup.string()
-        .min(8, "Must be at least 8 characters")
-        .matches(/[A-Z]/, "Must contain uppercase letter")
-        .required("Password is required"),
-
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password")], "Passwords must match")
-        .required("Confirm your password")
+      email: Yup.string().matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Enter a valid email").required("Email is required"),
+      username: Yup.string().matches(/^\S*$/, "Username cannot contain spaces").required("Username is required"),
+      password: Yup.string().min(8, "Use at least 8 characters").matches(/[A-Z]/, "Include one uppercase letter").required("Password is required"),
+      confirmPassword: Yup.string().oneOf([Yup.ref("password")], "Passwords must match").required("Confirm your password"),
     }),
-
-    onSubmit: (values) => {
-      console.log(values);
-      navigate("/");
-    }
+    onSubmit: (values) => { console.log(values); navigate("/"); },
   });
-
-  const inputClass = (field) =>
-    `w-full px-4 py-2.5 text-sm rounded-lg border outline-none transition
-     bg-white text-gray-800 placeholder-gray-400
-     ${formik.touched[field] && formik.errors[field]
-       ? "border-red-300 focus:border-red-400"
-       : "border-gray-200 focus:border-violet-400"
-     }`;
+  const inputClass = (field) => `w-full rounded-xl border bg-[#fcfbf8] px-4 py-3 text-sm text-[#27332a] outline-none transition placeholder:text-[#a0a9a0] ${formik.touched[field] && formik.errors[field] ? "border-red-300 focus:border-red-400" : "border-[#e2ded6] focus:border-[#78966d] focus:bg-white focus:ring-4 focus:ring-[#e7eee4]"}`;
 
   return (
-    <div className="max-w-md mx-auto px-4 py-12">
+    <div className="relative overflow-hidden px-5 py-14 sm:px-8 sm:py-20">
+      <div className="absolute -right-12 top-8 h-64 w-64 rounded-full border-[22px] border-[#e7eee4]" />
+      <div className="relative mx-auto grid max-w-5xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+        <div>
+          <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#6f8f67]">Become part of nest</span>
+          <h1 className="mt-3 font-['Playfair_Display'] text-4xl font-semibold leading-tight text-[#27332a] sm:text-5xl">Save the things that feel like you.</h1>
+          <p className="mt-5 max-w-sm text-sm leading-7 text-[#667085]">Create your personal space to keep track of your favourite finds and make shopping feel a little more considered.</p>
+          <div className="mt-8 flex items-center gap-3 text-sm font-semibold text-[#45603e]"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#e7eee4]">01</span> Curated, always.</div>
+        </div>
 
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-medium text-gray-900">
-          Create account
-        </h1>
-        <p className="text-sm text-gray-400 mt-1">
-          Fill in the details below to get started
-        </p>
+        <div className="rounded-[1.5rem] border border-[#e7e3dc] bg-white p-5 shadow-[0_18px_35px_rgba(38,51,39,0.08)] sm:p-8">
+          <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4">
+            <FormField name="name" placeholder="Full name" formik={formik} className={inputClass("name")} />
+            <FormField name="email" placeholder="Email address" formik={formik} className={inputClass("email")} />
+            <FormField name="username" placeholder="Choose a username" formik={formik} className={inputClass("username")} />
+            <div className="my-1 border-t border-[#eeeae4]" />
+            <FormField name="password" type="password" placeholder="Create a password" formik={formik} className={inputClass("password")} />
+            <FormField name="confirmPassword" type="password" placeholder="Confirm password" formik={formik} className={inputClass("confirmPassword")} />
+            <p className="-mt-1 text-xs leading-5 text-[#98a395]">Use at least 8 characters and include one uppercase letter.</p>
+            <button type="submit" className="mt-1 rounded-full bg-[#27332a] py-3.5 text-sm font-semibold text-white transition hover:bg-[#45603e] shadow-[0_8px_18px_rgba(38,51,39,0.18)]">Create your account</button>
+          </form>
+        </div>
       </div>
-
-      <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4">
-
-        {/* Name */}
-        <div>
-          <input
-            name="name"
-            placeholder="Full name"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.name}
-            className={inputClass("name")}
-          />
-          {formik.touched.name && formik.errors.name && (
-            <p className="text-red-400 text-xs mt-1">{formik.errors.name}</p>
-          )}
-        </div>
-
-        {/* Email */}
-        <div>
-          <input
-            name="email"
-            placeholder="Email address"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-            className={inputClass("email")}
-          />
-          {formik.touched.email && formik.errors.email && (
-            <p className="text-red-400 text-xs mt-1">{formik.errors.email}</p>
-          )}
-        </div>
-
-        {/* Username */}
-        <div>
-          <input
-            name="username"
-            placeholder="Username"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.username}
-            className={inputClass("username")}
-          />
-          {formik.touched.username && formik.errors.username && (
-            <p className="text-red-400 text-xs mt-1">{formik.errors.username}</p>
-          )}
-        </div>
-
-        {/* Divider */}
-        <div className="border-t border-gray-100 my-1" />
-
-        {/* Password */}
-        <div>
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            className={inputClass("password")}
-          />
-          {formik.touched.password && formik.errors.password && (
-            <p className="text-red-400 text-xs mt-1">{formik.errors.password}</p>
-          )}
-        </div>
-
-        {/* Confirm Password */}
-        <div>
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.confirmPassword}
-            className={inputClass("confirmPassword")}
-          />
-          {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-            <p className="text-red-400 text-xs mt-1">{formik.errors.confirmPassword}</p>
-          )}
-        </div>
-
-        {/* Password hint */}
-        <p className="text-xs text-gray-400 -mt-2">
-          Min 8 characters, must include an uppercase letter
-        </p>
-
-        {/* Submit */}
-        <button
-          type="submit"
-          className="w-full bg-violet-800 text-violet-100 py-2.5
-                     rounded-lg text-sm font-medium
-                     hover:bg-violet-900 transition mt-1"
-        >
-          Create account
-        </button>
-
-      </form>
     </div>
   );
 }
+
+function FormField({ name, type = "text", placeholder, formik, className }) { return <div><input type={type} name={name} value={formik.values[name]} placeholder={placeholder} onChange={formik.handleChange} onBlur={formik.handleBlur} className={className} />{formik.touched[name] && formik.errors[name] && <p className="mt-1 text-xs text-red-500">{formik.errors[name]}</p>}</div>; }
 
 export default Register;
